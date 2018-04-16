@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.media.midi.MidiDevice
 import android.media.midi.MidiDeviceInfo
+import android.media.midi.MidiInputPort
 import android.media.midi.MidiManager
 import android.os.Bundle
 import android.util.Log
@@ -18,9 +19,10 @@ import com.omkarmoghe.midibeatpad.midi.*
 class MainActivity : Activity() {
     val TAG: String = "MainActivity"
 
+    var midiManager: MidiManager? = null
     var allDevices: MutableSet<MidiDeviceInfo> = mutableSetOf()
     var selectedDevice: MidiDevice? = null
-    var midiManager: MidiManager? = null
+    var selectedInputPort: MidiInputPort? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,21 +59,23 @@ class MainActivity : Activity() {
                 getMidiNote(Note.C).toByte(),
                 127.toByte()
         )
-        val inputPort = selectedDevice?.openFirstInputPort()
 
         pad1.setOnTouchListener { view, motionEvent ->
+            // escape early if no input port available
+            if (selectedInputPort == null) return@setOnTouchListener false
+
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
                     Log.d(TAG, "pad down")
-                    inputPort?.send(c4On, 0, c4On.size)
+                    selectedInputPort!!.send(c4On, 0, c4On.size)
                     return@setOnTouchListener true
                 }
                 MotionEvent.ACTION_UP -> {
                     Log.d(TAG, "pad up")
-                    inputPort?.send(c4Off, 0, c4Off.size)
+                    selectedInputPort!!.send(c4Off, 0, c4Off.size)
                     return@setOnTouchListener true
                 }
-                else -> false
+                else -> return@setOnTouchListener false
             }
         }
     }
@@ -79,14 +83,22 @@ class MainActivity : Activity() {
     private val devicesSpinnerListener = object: AdapterView.OnItemSelectedListener {
         override fun onNothingSelected(parent: AdapterView<*>?) {
             selectedDevice = null
+            selectedInputPort = null
         }
 
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val deviceName = parent?.getItemAtPosition(position) as String
-            val selectedDeviceInfo = allDevices.find { device -> device.properties.getString(MidiDeviceInfo.PROPERTY_NAME) == deviceName }
-            midiManager?.openDevice(selectedDeviceInfo!!,
-                    { device -> selectedDevice = device },
-                    null)
+            val selectedDeviceInfo = allDevices.find { device ->
+                device.properties.getString(MidiDeviceInfo.PROPERTY_NAME) == deviceName
+            }
+            midiManager?.openDevice(
+                    selectedDeviceInfo!!,
+                    { device ->
+                        selectedDevice = device
+                        selectedInputPort = selectedDevice!!.openFirstInputPort()
+                    },
+                    null
+            )
             Log.d(TAG, "Selected device: $selectedDeviceInfo")
         }
     }
