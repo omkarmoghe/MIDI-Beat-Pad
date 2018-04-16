@@ -8,6 +8,7 @@ import android.media.midi.MidiDeviceInfo
 import android.media.midi.MidiManager
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -46,27 +47,31 @@ class MainActivity : Activity() {
     }
 
     fun setUpTestButton() {
-        pad1.setOnClickListener {
-            if (selectedDevice != null) {
-                Log.d(TAG, "Button 1 pressed")
-                val portInfos = selectedDevice?.ports
-                val inputPortInfo = portInfos?.find { port -> port.type == MidiDeviceInfo.PortInfo.TYPE_INPUT }
+        val c4On = byteArrayOf(
+            getMidiMessage(Message.NOTE_ON, Channel.THREE).toByte(),
+            getMidiNote(Note.C).toByte(),
+            127.toByte()
+        )
+        val c4Off = byteArrayOf(
+                getMidiMessage(Message.NOTE_OFF, Channel.THREE).toByte(),
+                getMidiNote(Note.C).toByte(),
+                127.toByte()
+        )
+        val inputPort = selectedDevice?.openFirstInputPort()
 
-                if (inputPortInfo != null) {
-                    val inputPort = selectedDevice?.openInputPort(inputPortInfo.portNumber)
-                    val midiBytes = byteArrayOf(
-                            getMidiMessage(Message.NOTE_ON, Channel.THREE).toByte(),
-                            getMidiNote(Note.C).toByte(),
-                            127.toByte(),
-                            getMidiMessage(Message.NOTE_OFF, Channel.THREE).toByte(),
-                            getMidiNote(Note.C).toByte(),
-                            0.toByte()
-                    )
-                    inputPort?.send(midiBytes, 0, midiBytes.size)
-
+        pad1.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    Log.d(TAG, "pad down")
+                    inputPort?.send(c4On, 0, c4On.size)
+                    return@setOnTouchListener true
                 }
-            } else {
-                Log.d(TAG, "No selected device")
+                MotionEvent.ACTION_UP -> {
+                    Log.d(TAG, "pad up")
+                    inputPort?.send(c4Off, 0, c4Off.size)
+                    return@setOnTouchListener true
+                }
+                else -> false
             }
         }
     }
