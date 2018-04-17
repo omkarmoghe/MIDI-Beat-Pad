@@ -29,4 +29,4 @@ Virtual beat pad & keyboard
 
 As of 4/16/18, there is no APK available for download. To run install the app, clone the repo and build the project in Android Studio. 
 
-This project was developed on my Nexus 6P and tested with GarageBand, Logic Pro X, and FL Studio 12. In theory (hah), it should work with any DAW that supports MIDI interfaces. YMMV.
+This project was developed for my Nexus 6P and tested with GarageBand, Logic Pro X, and FL Studio 12. In theory (hah), it should work with any DAW that supports MIDI interfaces. YMMV.

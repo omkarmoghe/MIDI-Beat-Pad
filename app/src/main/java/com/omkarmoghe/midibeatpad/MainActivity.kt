@@ -15,6 +15,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import com.omkarmoghe.midibeatpad.midi.*
+import com.omkarmoghe.midibeatpad.pad.MidiPad
+import com.omkarmoghe.midibeatpad.pad.PadTouchListener
 
 class MainActivity : Activity() {
     val TAG: String = "MainActivity"
@@ -34,7 +36,7 @@ class MainActivity : Activity() {
             allDevices.addAll(midiManager!!.devices)
 
             setUpDevicesSpinner()
-            setUpTestButton()
+            setUpTestButtons()
         } else {
             Log.d(TAG, "No MIDI support :(")
         }
@@ -48,36 +50,11 @@ class MainActivity : Activity() {
         devicesSpinner.onItemSelectedListener = devicesSpinnerListener
     }
 
-    fun setUpTestButton() {
-        val c4On = byteArrayOf(
-            getMidiMessage(Message.NOTE_ON, Channel.THREE).toByte(),
-            getMidiNote(Note.C).toByte(),
-            127.toByte()
-        )
-        val c4Off = byteArrayOf(
-                getMidiMessage(Message.NOTE_OFF, Channel.THREE).toByte(),
-                getMidiNote(Note.C).toByte(),
-                127.toByte()
-        )
-
-        pad1.setOnTouchListener { view, motionEvent ->
-            // escape early if no input port available
-            if (selectedInputPort == null) return@setOnTouchListener false
-
-            when (motionEvent.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    Log.d(TAG, "pad down")
-                    selectedInputPort!!.send(c4On, 0, c4On.size)
-                    return@setOnTouchListener true
-                }
-                MotionEvent.ACTION_UP -> {
-                    Log.d(TAG, "pad up")
-                    selectedInputPort!!.send(c4Off, 0, c4Off.size)
-                    return@setOnTouchListener true
-                }
-                else -> return@setOnTouchListener false
-            }
-        }
+    private fun setUpTestButtons() {
+        pad1.setOnTouchListener(PadTouchListener(MidiPad(), selectedInputPort))
+        pad2.setOnTouchListener(PadTouchListener(MidiPad(), selectedInputPort))
+        pad3.setOnTouchListener(PadTouchListener(MidiPad(), selectedInputPort))
+        pad4.setOnTouchListener(PadTouchListener(MidiPad(), selectedInputPort))
     }
 
     private val devicesSpinnerListener = object: AdapterView.OnItemSelectedListener {
