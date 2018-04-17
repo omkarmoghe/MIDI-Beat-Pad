@@ -9,15 +9,15 @@ import android.media.midi.MidiInputPort
 import android.media.midi.MidiManager
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
-import kotlinx.android.synthetic.main.activity_main.*
-import com.omkarmoghe.midibeatpad.midi.*
+import com.omkarmoghe.midibeatpad.midi.Channel
+import com.omkarmoghe.midibeatpad.midi.Note
+import com.omkarmoghe.midibeatpad.midi.openFirstInputPort
 import com.omkarmoghe.midibeatpad.pad.MidiPad
 import com.omkarmoghe.midibeatpad.pad.PadTouchListener
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity() {
     val TAG: String = "MainActivity"
