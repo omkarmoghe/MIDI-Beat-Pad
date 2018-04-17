@@ -29,6 +29,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setActionBar(toolbar)
 
         if (applicationContext.packageManager.hasSystemFeature(PackageManager.FEATURE_MIDI)) {
             midiManager = applicationContext.getSystemService(Context.MIDI_SERVICE) as MidiManager
@@ -52,9 +53,8 @@ class MainActivity : Activity() {
 
     private fun setUpTestButtons() {
         pad1.setOnTouchListener(PadTouchListener(MidiPad(), selectedInputPort))
-        pad2.setOnTouchListener(PadTouchListener(MidiPad(), selectedInputPort))
-        pad3.setOnTouchListener(PadTouchListener(MidiPad(), selectedInputPort))
-        pad4.setOnTouchListener(PadTouchListener(MidiPad(), selectedInputPort))
+        pad2.setOnTouchListener(PadTouchListener(MidiPad(note = Note.D), selectedInputPort))
+        pad3.setOnTouchListener(PadTouchListener(MidiPad(note = Note.E), selectedInputPort))
     }
 
     private val devicesSpinnerListener = object: AdapterView.OnItemSelectedListener {

@@ -6,53 +6,174 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Spinner
-        android:id="@+id/devicesSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="?android:attr/colorPrimary"
+        android:elevation="4dp"
+        android:gravity="end"
+        android:minHeight="?android:attr/actionBarSize"
+        android:theme="@style/AppTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Spinner
+            android:id="@+id/devicesSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:popupBackground="?android:attr/colorAccent"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="8dp" />
+    </Toolbar>
+
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/pad1"
-        android:layout_width="144dp"
-        android:layout_height="144dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/pad3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/devicesSpinner" />
-
-    <Button
-        android:id="@+id/pad2"
-        android:layout_width="144dp"
-        android:layout_height="144dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/pad4"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/devicesSpinner" />
-
-    <Button
-        android:id="@+id/pad3"
-        android:layout_width="144dp"
-        android:layout_height="144dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pad1" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-    <Button
-        android:id="@+id/pad4"
-        android:layout_width="144dp"
-        android:layout_height="144dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pad2" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
+            <Button
+                android:id="@+id/pad1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+
+            <Button
+                android:id="@+id/pad2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+
+            <Button
+                android:id="@+id/pad3"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/pad4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+
+            <Button
+                android:id="@+id/pad6"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+
+            <Button
+                android:id="@+id/pad5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/pad9"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+
+            <Button
+                android:id="@+id/pad8"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+
+            <Button
+                android:id="@+id/pad7"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/pad12"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+
+            <Button
+                android:id="@+id/pad11"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+
+            <Button
+                android:id="@+id/pad10"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="100dp"
+                app:layout_constraintWidth_max="200dp"
+                app:layout_constraintWidth_min="100dp" />
+        </TableRow>
+    </TableLayout>
 </android.support.constraint.ConstraintLayout>
