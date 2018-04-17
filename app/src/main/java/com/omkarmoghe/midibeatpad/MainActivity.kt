@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 import com.omkarmoghe.midibeatpad.midi.*
 import com.omkarmoghe.midibeatpad.pad.MidiPad
@@ -52,7 +53,10 @@ class MainActivity : Activity() {
     }
 
     private fun setUpTestButtons() {
-        pad1.setOnTouchListener(PadTouchListener(MidiPad(), selectedInputPort))
+        val pad1TouchListener = PadTouchListener(MidiPad(channel = Channel.THREE), selectedInputPort)
+        pad1.setOnTouchListener(pad1TouchListener)
+        pad1.setOnClickListener(pad1TouchListener)
+
         pad2.setOnTouchListener(PadTouchListener(MidiPad(note = Note.D), selectedInputPort))
         pad3.setOnTouchListener(PadTouchListener(MidiPad(note = Note.E), selectedInputPort))
     }
@@ -82,8 +86,8 @@ class MainActivity : Activity() {
 
     private val midiDeviceCallback = object: MidiManager.DeviceCallback() {
         override fun onDeviceRemoved(device: MidiDeviceInfo?) {
+            Log.d(TAG, "Device removed: $device")
             if (device != null) {
-                Log.d(TAG, "Device removed: $device")
                 allDevices.remove(device)
                 runOnUiThread { setUpDevicesSpinner() }
             }

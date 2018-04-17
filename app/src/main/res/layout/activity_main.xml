@@ -28,152 +28,77 @@
             tools:layout_editor_absoluteY="8dp" />
     </Toolbar>
 
-    <TableLayout
+    <LinearLayout
+        android:id="@+id/rack"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:gravity="center"
         android:orientation="vertical"
-        android:stretchColumns="*"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <TableRow
+        <LinearLayout
+            android:id="@+id/row1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-            <Button
+            <include
                 android:id="@+id/pad1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
+                layout="@layout/pad" />
 
-            <Button
+            <include
                 android:id="@+id/pad2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
+                layout="@layout/pad" />
 
-            <Button
+            <include
                 android:id="@+id/pad3"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
+                layout="@layout/pad" />
+        </LinearLayout>
 
-        </TableRow>
-
-        <TableRow
+        <LinearLayout
+            android:id="@+id/row2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-            <Button
+            <include
                 android:id="@+id/pad4"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
+                layout="@layout/pad" />
 
-            <Button
-                android:id="@+id/pad6"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
-
-            <Button
+            <include
                 android:id="@+id/pad5"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
-        </TableRow>
+                layout="@layout/pad" />
 
-        <TableRow
+            <include
+                android:id="@+id/pad6"
+                layout="@layout/pad" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/row3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/pad9"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
+        </LinearLayout>
 
-            <Button
-                android:id="@+id/pad8"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
-
-            <Button
-                android:id="@+id/pad7"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
-        </TableRow>
-
-        <TableRow
+        <LinearLayout
+            android:id="@+id/row4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/pad12"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
+        </LinearLayout>
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/pad11"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
-
-            <Button
-                android:id="@+id/pad10"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintHeight_max="200dp"
-                app:layout_constraintHeight_min="100dp"
-                app:layout_constraintWidth_max="200dp"
-                app:layout_constraintWidth_min="100dp" />
-        </TableRow>
-    </TableLayout>
 </android.support.constraint.ConstraintLayout>

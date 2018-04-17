@@ -7,23 +7,31 @@ import android.view.View
 import com.omkarmoghe.midibeatpad.midi.Message
 import com.omkarmoghe.midibeatpad.midi.send
 
-class PadTouchListener(private val midiPad: MidiPad, var inputPort: MidiInputPort?): View.OnTouchListener {
+class PadTouchListener(private val midiPad: MidiPad, var inputPort: MidiInputPort?):
+        View.OnTouchListener, View.OnClickListener {
     val TAG: String = "PadTouchListener"
 
+    // Run's first
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         return when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
+                v?.isPressed = true
                 Log.d(TAG, "DOWN: $midiPad")
                 inputPort?.send(midiPad.toMidiByteArray(Message.NOTE_ON))
                 true
             }
             MotionEvent.ACTION_UP -> {
+                v?.isPressed = false
                 Log.d(TAG, "UP: $midiPad")
                 inputPort?.send(midiPad.toMidiByteArray(Message.NOTE_OFF))
-                v?.performClick()
                 true
             }
             else -> false
         }
+    }
+
+    // Runs if onTouch returns false or view.performClick() is called
+    override fun onClick(v: View?) {
+        Log.d(TAG, "$v clicked!")
     }
 }
