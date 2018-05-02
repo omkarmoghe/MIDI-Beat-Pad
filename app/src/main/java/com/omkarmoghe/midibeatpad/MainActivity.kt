@@ -9,6 +9,8 @@ import android.media.midi.MidiInputPort
 import android.media.midi.MidiManager
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -27,10 +29,13 @@ class MainActivity : Activity() {
     var selectedDevice: MidiDevice? = null
     var selectedInputPort: MidiInputPort? = null
 
+    // onCreate(s)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setActionBar(toolbar)
+        actionBar.setDisplayShowTitleEnabled(false)
 
         if (applicationContext.packageManager.hasSystemFeature(PackageManager.FEATURE_MIDI)) {
             midiManager = applicationContext.getSystemService(Context.MIDI_SERVICE) as MidiManager
@@ -44,7 +49,16 @@ class MainActivity : Activity() {
         }
     }
 
-    fun setUpDevicesSpinner() {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean = try {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        true
+    } catch (e: Exception) {
+        super.onCreateOptionsMenu(menu)
+    }
+
+    // UI
+
+    private fun setUpDevicesSpinner() {
         val options = allDevices.map { device -> device.properties.getCharSequence(MidiDeviceInfo.PROPERTY_NAME) }
         val adapter: ArrayAdapter<CharSequence> = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -59,6 +73,18 @@ class MainActivity : Activity() {
 
         pad2.setOnTouchListener(PadTouchListener(MidiPad(note = Note.D), selectedInputPort))
         pad3.setOnTouchListener(PadTouchListener(MidiPad(note = Note.E), selectedInputPort))
+    }
+
+    // Callbacks
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
+        R.id.actionAssignPads -> {
+            true
+        }
+        R.id.actionSettings -> {
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private val devicesSpinnerListener = object: AdapterView.OnItemSelectedListener {

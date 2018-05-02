@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MIDI Beat Pad</string>
+
+    <!-- Main menu -->
+    <string name="actionSettings">Settings</string>
+    <string name="actionAssignPads">Assign pads</string>
+
+    <string name="midiSpinnerPrompt">Select device…</string>
 </resources>

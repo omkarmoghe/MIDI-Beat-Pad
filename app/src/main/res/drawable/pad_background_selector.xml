@@ -3,13 +3,21 @@
     <item android:state_pressed="true" android:state_focused="true">
         <shape android:shape="rectangle">
             <corners android:radius="3dp" />
-            <solid android:color="@color/colorAccent" />
+            <gradient
+                android:gradientRadius="90%p"
+                android:startColor="@color/padBlue"
+                android:endColor="@color/padDefault"
+                android:type="radial" />
         </shape>
     </item>
     <item android:state_pressed="true" android:state_focused="false">
         <shape android:shape="rectangle">
             <corners android:radius="3dp" />
-            <solid android:color="@color/colorAccent" />
+            <gradient
+                android:gradientRadius="90%p"
+                android:startColor="@color/padBlue"
+                android:endColor="@color/padDefault"
+                android:type="radial" />
         </shape>
     </item>
     <item>

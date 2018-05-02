@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Settings -->
+    <item
+        android:id="@+id/actionSettings"
+        android:icon="@drawable/action_settings"
+        android:title="@string/actionSettings"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionAssignPads"
+        android:icon="@drawable/action_assign_pads"
+        android:title="@string/actionAssignPads"
+        android:showAsAction="ifRoom" />
+</menu>
