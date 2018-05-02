@@ -67,6 +67,7 @@ class MainActivity : Activity() {
     }
 
     private fun setUpTestButtons() {
+        // TODO: automate the pad set up
         val pad1TouchListener = PadTouchListener(MidiPad(channel = Channel.THREE), selectedInputPort)
         pad1.setOnTouchListener(pad1TouchListener)
         pad1.setOnClickListener(pad1TouchListener)

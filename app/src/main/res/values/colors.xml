@@ -2,12 +2,12 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#36566e</color>
+    <color name="colorAccent">@color/padBlue</color>
     <color name="padDefault">#7fbcbcbc</color>
 
     <!-- Pad colors -->
     <color name="padGreen">#A8E806</color>
-    <color name="padBlue">#49B3F2</color>
+    <color name="padBlue">#49b3f2</color>
     <color name="padPurple">#FF7AC4</color>
     <color name="padRed">#FF3A29</color>
     <color name="padOrange">#FFA205</color>

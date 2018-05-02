@@ -1,9 +1,22 @@
 <resources>
     <string name="app_name">MIDI Beat Pad</string>
 
+    <!-- Generic -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+
     <!-- Main menu -->
     <string name="actionSettings">Settings</string>
     <string name="actionAssignPads">Assign pads</string>
+
+    <!-- Edit pad dialog -->
+    <string name="editPad">Customize this MIDI phad</string>
+    <string name="enablePad">Enable pad</string>
+    <string name="midiChannel">MIDI channel</string>
+    <string name="note">Note</string>
+    <string name="octave">Octave</string>
+    <string name="velocity">Velocity</string>
 
     <string name="midiSpinnerPrompt">Select device…</string>
 </resources>
