@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter
 import com.omkarmoghe.midibeatpad.midi.Channel
 import com.omkarmoghe.midibeatpad.midi.Note
 import com.omkarmoghe.midibeatpad.midi.openFirstInputPort
+import com.omkarmoghe.midibeatpad.pad.EditPadDialogFragment
 import com.omkarmoghe.midibeatpad.pad.MidiPad
 import com.omkarmoghe.midibeatpad.pad.PadTouchListener
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,6 +48,8 @@ class MainActivity : Activity() {
         } else {
             Log.d(TAG, "No MIDI support :(")
         }
+
+        EditPadDialogFragment.newInstance(MidiPad(Channel.ONE, Note.D)).show(fragmentManager, null)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean = try {
