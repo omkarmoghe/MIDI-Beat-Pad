@@ -5,7 +5,7 @@ package com.omkarmoghe.midibeatpad.midi
  *
  * Multiplier used with Note to calculate corresponding MIDI note number
  */
-enum class Octave(val multiplier: Int) {
+enum class Octave(val multiplier: Int, val humanString: String = (multiplier - 1).toString()) {
     NEGATIVE_ONE(0),
     ZERO(1),
     ONE(2),

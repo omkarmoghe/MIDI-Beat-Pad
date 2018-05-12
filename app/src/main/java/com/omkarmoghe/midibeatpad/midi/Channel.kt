@@ -3,7 +3,7 @@ package com.omkarmoghe.midibeatpad.midi
 /**
  * Valid MIDI channels
  */
-enum class Channel(val id: Int) {
+enum class Channel(val id: Int, val humanString: String = id.toString()) {
     ONE(1),
     TWO(2),
     THREE(3),

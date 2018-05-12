@@ -5,7 +5,13 @@ import android.app.Dialog
 import android.app.DialogFragment
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import com.omkarmoghe.midibeatpad.R
+import com.omkarmoghe.midibeatpad.midi.Channel
+import com.omkarmoghe.midibeatpad.midi.Note
+import com.omkarmoghe.midibeatpad.midi.Octave
 import kotlinx.android.synthetic.main.edit_pad_dialog_fragment.view.*
 
 class EditPadDialogFragment: DialogFragment() {
@@ -20,6 +26,7 @@ class EditPadDialogFragment: DialogFragment() {
 
             val fragment = EditPadDialogFragment()
             fragment.arguments = args
+
             return fragment
         }
     }
@@ -31,14 +38,45 @@ class EditPadDialogFragment: DialogFragment() {
 
         // Set up view
         view.enablePadSwitch.isChecked = midiPad.enabled
-        // TODO: update spinners & velocity
+        view.enablePadSwitch.setOnCheckedChangeListener({ _, isChecked ->  toggleControls(view, isChecked)})
+        setUpSpinner(
+                view.channelSpinner,
+                Channel.values().map { channel -> channel.humanString },
+                midiPad.channel.ordinal
+        )
+        setUpSpinner(
+                view.noteSpinner,
+                Note.values().map { note -> note.humanString },
+                midiPad.note.ordinal
+        )
+        setUpSpinner(
+                view.octaveSpinner,
+                Octave.values().map { octave -> octave.humanString },
+                midiPad.octave.ordinal
+
+        )
+        view.velocitySeekBar.progress = midiPad.velocity
 
         // Build dialog
         builder.setTitle(R.string.editPad)
         builder.setView(view)
-        builder.setPositiveButton(R.string.save, { _: DialogInterface, _: Int -> /* TODO: update pad & SharedPreferences */})
         builder.setNegativeButton(R.string.cancel, { _: DialogInterface, _: Int -> })
+        builder.setPositiveButton(R.string.save, { _: DialogInterface, _: Int -> /* TODO: update pad & SharedPreferences */})
 
         return builder.create()
+    }
+
+    private fun toggleControls(view: View, enable: Boolean) {
+        view.channelSpinner.isEnabled = enable
+        view.noteSpinner.isEnabled = enable
+        view.octaveSpinner.isEnabled = enable
+        view.velocitySeekBar.isEnabled = enable
+    }
+
+    private fun setUpSpinner(spinner: Spinner, options: List<CharSequence>, default: Int = 0) {
+        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter(context, android.R.layout.simple_spinner_item, options)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.setSelection(default)
     }
 }
