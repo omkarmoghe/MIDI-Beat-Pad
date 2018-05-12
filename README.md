@@ -22,9 +22,9 @@ Zero-lag sending and receiving of MIDI data.
 Virtual beat pad & keyboard
 - [x] Pad
 - [ ] Keyboard
-- [ ] Lights & color
+- [x] Lights & color
 - [ ] Velocity control
-- [ ] Note selector
+- [ ] Pad editor (select octave, note, velocity, etc.)
 
 # Building & Installing
 **MIDI on Android requires a minimum SDK version of `23` == `Android M` == `6.0`.**

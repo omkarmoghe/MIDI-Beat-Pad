@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MIDI Beat Pad</string>
+    <string name="app_name">MIDI Beat Pad (Alpha)</string>
 
     <!-- Generic -->
     <string name="save">Save</string>
@@ -11,7 +11,7 @@
     <string name="actionAssignPads">Assign pads</string>
 
     <!-- Edit pad dialog -->
-    <string name="editPad">Customize this MIDI phad</string>
+    <string name="editPad">Customize this MIDI pad</string>
     <string name="enablePad">Enable pad</string>
     <string name="midiChannel">MIDI channel</string>
     <string name="note">Note</string>
