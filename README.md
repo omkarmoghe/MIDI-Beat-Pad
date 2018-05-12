@@ -1,7 +1,7 @@
 # MIDI Beat Pad 🎹
 DAW agnostic MIDI beat pad for Android M+
 
-The goal of this project is to be a software based replacement for traditinal [MIDI controllers/pads](https://www.google.com/search?q=midi+pad&tbm=isch). This **is not** a synthesiser; it **does not** generate sounds. This application only generates MIDI _output_ and must be connected to something which takes in MIDI _input_ (like most DAWs) to generate actual sound.
+The goal of this project is to be a software based replacement for traditional [MIDI controllers/pads](https://www.google.com/search?q=midi+pad&tbm=isch). This **is not** a synthesizer; it **does not** generate sounds. This application only generates MIDI _output_ and must be connected to something which takes in MIDI _input_ (like most DAWs) to generate actual sound.
 
 # Roadmap
 All the shit I need to do.
