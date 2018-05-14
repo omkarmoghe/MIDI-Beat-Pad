@@ -23,8 +23,8 @@ Virtual beat pad & keyboard
 - [x] Pad
 - [ ] Keyboard
 - [x] Lights & color
-- [ ] Velocity control
-- [ ] Pad editor (select octave, note, velocity, etc.)
+- [x] Velocity control
+- [x] Pad editor (select octave, note, velocity, etc.)
 
 # Building & Installing
 **MIDI on Android requires a minimum SDK version of `23` == `Android M` == `6.0`.**
