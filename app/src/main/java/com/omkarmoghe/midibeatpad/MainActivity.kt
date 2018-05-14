@@ -14,16 +14,15 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.omkarmoghe.midibeatpad.midi.Channel
-import com.omkarmoghe.midibeatpad.midi.Note
+import android.widget.Button
+import android.widget.LinearLayout
 import com.omkarmoghe.midibeatpad.midi.openFirstInputPort
-import com.omkarmoghe.midibeatpad.pad.EditPadDialogFragment
 import com.omkarmoghe.midibeatpad.pad.MidiPad
 import com.omkarmoghe.midibeatpad.pad.PadTouchListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity() {
-    val TAG: String = "MainActivity"
+    val tag: String = "MainActivity"
 
     var midiManager: MidiManager? = null
     var allDevices: MutableSet<MidiDeviceInfo> = mutableSetOf()
@@ -44,12 +43,10 @@ class MainActivity : Activity() {
             allDevices.addAll(midiManager!!.devices)
 
             setUpDevicesSpinner()
-            setUpTestButtons()
+            setUpRack()
         } else {
-            Log.d(TAG, "No MIDI support :(")
+            Log.d(tag, "No MIDI support :(")
         }
-
-        EditPadDialogFragment.newInstance(MidiPad(Channel.ONE, Note.D)).show(fragmentManager, null)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean = try {
@@ -63,26 +60,37 @@ class MainActivity : Activity() {
 
     private fun setUpDevicesSpinner() {
         val options = allDevices.map { device -> device.properties.getCharSequence(MidiDeviceInfo.PROPERTY_NAME) }
-        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter(this, R.layout.spinner_item, options)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         devicesSpinner.adapter = adapter
         devicesSpinner.onItemSelectedListener = devicesSpinnerListener
     }
 
-    private fun setUpTestButtons() {
-        // TODO: automate the pad set up
-        val pad1TouchListener = PadTouchListener(MidiPad(channel = Channel.THREE), selectedInputPort)
-        pad1.setOnTouchListener(pad1TouchListener)
-        pad1.setOnClickListener(pad1TouchListener)
+    private fun setUpRack() {
+        val numRows = 4 // TODO: get this from shared prefs
+        val padsPerRow = 3 // TODO: get this from shared prefs
 
-        pad2.setOnTouchListener(PadTouchListener(MidiPad(note = Note.D), selectedInputPort))
-        pad3.setOnTouchListener(PadTouchListener(MidiPad(note = Note.E), selectedInputPort))
+        repeat(numRows, {
+            layoutInflater.inflate(R.layout.row, rack, true)
+        })
+
+        repeat(rack.childCount, { index ->
+            val row: LinearLayout = rack.getChildAt(index) as LinearLayout
+            repeat(padsPerRow, {
+                val pad: Button = layoutInflater.inflate(R.layout.pad, row, false) as Button
+                val padTouchListener = PadTouchListener(MidiPad(), selectedInputPort, fragmentManager)
+                pad.setOnTouchListener(padTouchListener)
+                pad.setOnClickListener(padTouchListener)
+                row.addView(pad)
+            })
+        })
     }
 
     // Callbacks
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
         R.id.actionAssignPads -> {
+            // TODO: set all pads.editing to true
             true
         }
         R.id.actionSettings -> {
@@ -110,13 +118,13 @@ class MainActivity : Activity() {
                     },
                     null
             )
-            Log.d(TAG, "Selected device: $selectedDeviceInfo")
+            Log.d(tag, "Selected device: $selectedDeviceInfo")
         }
     }
 
     private val midiDeviceCallback = object: MidiManager.DeviceCallback() {
         override fun onDeviceRemoved(device: MidiDeviceInfo?) {
-            Log.d(TAG, "Device removed: $device")
+            Log.d(tag, "Device removed: $device")
             if (device != null) {
                 allDevices.remove(device)
                 runOnUiThread { setUpDevicesSpinner() }
@@ -125,7 +133,7 @@ class MainActivity : Activity() {
 
         override fun onDeviceAdded(device: MidiDeviceInfo?) {
             if (device != null) {
-                Log.d(TAG, "Device added: $device")
+                Log.d(tag, "Device added: $device")
                 allDevices.add(device)
                 runOnUiThread { setUpDevicesSpinner() }
             }

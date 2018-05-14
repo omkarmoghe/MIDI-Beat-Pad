@@ -15,7 +15,9 @@ import com.omkarmoghe.midibeatpad.midi.Octave
 import kotlinx.android.synthetic.main.edit_pad_dialog_fragment.view.*
 
 class EditPadDialogFragment: DialogFragment() {
-    val TAG = "EditPadDialog"
+    val logTag = "EditPadDialog"
+
+    var listener: EditPadListener? = null
 
     companion object {
         private const val midiPadKey = "midiPadKey"
@@ -29,6 +31,11 @@ class EditPadDialogFragment: DialogFragment() {
 
             return fragment
         }
+    }
+
+    fun withListener(listener: EditPadListener): EditPadDialogFragment {
+        this.listener = listener
+        return this
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -58,10 +65,19 @@ class EditPadDialogFragment: DialogFragment() {
         view.velocitySeekBar.progress = midiPad.velocity
 
         // Build dialog
-        builder.setTitle(R.string.editPad)
         builder.setView(view)
-        builder.setNegativeButton(R.string.cancel, { _: DialogInterface, _: Int -> })
-        builder.setPositiveButton(R.string.save, { _: DialogInterface, _: Int -> /* TODO: update pad & SharedPreferences */})
+        builder.setNegativeButton(R.string.cancel, { _: DialogInterface, _: Int -> listener?.onCancel() })
+        builder.setPositiveButton(R.string.save, { _: DialogInterface, _: Int ->
+            val newMidiPad = MidiPad(
+                    channel = Channel.values()[view.channelSpinner.selectedItemPosition],
+                    note = Note.values()[view.noteSpinner.selectedItemPosition],
+                    octave = Octave.values()[view.octaveSpinner.selectedItemPosition],
+                    velocity = view.velocitySeekBar.progress,
+                    enabled = view.enablePadSwitch.isChecked
+            )
+            listener?.onSave(newMidiPad)
+            // TODO: update shared prefs
+        })
 
         return builder.create()
     }
@@ -74,9 +90,15 @@ class EditPadDialogFragment: DialogFragment() {
     }
 
     private fun setUpSpinner(spinner: Spinner, options: List<CharSequence>, default: Int = 0) {
-        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter(context, android.R.layout.simple_spinner_item, options)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        android.R.layout.simple_spinner_item
+        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter(context, R.layout.spinner_item, options)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.setSelection(default)
+    }
+
+    interface EditPadListener {
+        fun onSave(newMidiPad: MidiPad)
+        fun onCancel()
     }
 }

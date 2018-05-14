@@ -5,13 +5,12 @@ import android.os.Parcelable
 import com.omkarmoghe.midibeatpad.midi.*
 
 class MidiPad(
-        var channel: Channel = Channel.THREE,
+        var channel: Channel = Channel.ONE,
         var note: Note = Note.C,
         var octave: Octave = Octave.FOUR,
-        var velocity: Int = 127
+        var velocity: Int = 127,
+        var enabled: Boolean = true
 ): Parcelable {
-    var enabled = true
-
     constructor(parcel: Parcel) : this(
             Channel.valueOf(parcel.readString()),
             Note.valueOf(parcel.readString()),

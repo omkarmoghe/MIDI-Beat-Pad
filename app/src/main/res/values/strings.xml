@@ -11,7 +11,7 @@
     <string name="actionAssignPads">Assign pads</string>
 
     <!-- Edit pad dialog -->
-    <string name="editPad">Customize this MIDI pad</string>
+    <string name="editPad">Edit pad</string>
     <string name="enablePad">Enable pad</string>
     <string name="midiChannel">MIDI channel</string>
     <string name="note">Note</string>

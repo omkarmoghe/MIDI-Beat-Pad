@@ -43,63 +43,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <LinearLayout
-            android:id="@+id/row1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <include
-                android:id="@+id/pad1"
-                layout="@layout/pad" />
-
-            <include
-                android:id="@+id/pad2"
-                layout="@layout/pad" />
-
-            <include
-                android:id="@+id/pad3"
-                layout="@layout/pad" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/row2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <include
-                android:id="@+id/pad4"
-                layout="@layout/pad" />
-
-            <include
-                android:id="@+id/pad5"
-                layout="@layout/pad" />
-
-            <include
-                android:id="@+id/pad6"
-                layout="@layout/pad" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/row3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/row4"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

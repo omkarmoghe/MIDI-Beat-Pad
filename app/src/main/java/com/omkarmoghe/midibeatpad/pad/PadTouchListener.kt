@@ -1,18 +1,27 @@
 package com.omkarmoghe.midibeatpad.pad
 
+import android.app.FragmentManager
 import android.media.midi.MidiInputPort
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
+import com.omkarmoghe.midibeatpad.midi.Channel
 import com.omkarmoghe.midibeatpad.midi.Message
+import com.omkarmoghe.midibeatpad.midi.Note
 import com.omkarmoghe.midibeatpad.midi.send
 
-class PadTouchListener(var midiPad: MidiPad, var inputPort: MidiInputPort?):
-        View.OnTouchListener, View.OnClickListener {
-    val TAG: String = "PadTouchListener"
+class PadTouchListener(
+        var midiPad: MidiPad,
+        var inputPort: MidiInputPort?,
+        val fragmentManager: FragmentManager
+): View.OnTouchListener, View.OnClickListener, EditPadDialogFragment.EditPadListener {
+    private val tag: String = "PadTouchListener"
+
+    var editing: Boolean = true
 
     // Run's first
-    override fun onTouch(v: View?, event: MotionEvent?): Boolean = if (midiPad.enabled) {
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean = if (midiPad.enabled && !editing) {
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 v?.isPressed = true
@@ -30,6 +39,16 @@ class PadTouchListener(var midiPad: MidiPad, var inputPort: MidiInputPort?):
 
     // Runs if onTouch returns false or view.performClick() is called
     override fun onClick(v: View?) {
-        Log.d(TAG, "$v clicked!")
+        if (editing) EditPadDialogFragment.newInstance(midiPad).withListener(this).show(fragmentManager, null)
+    }
+
+    // Run when pad is in edit mode
+    override fun onSave(newMidiPad: MidiPad) {
+        midiPad = newMidiPad
+        Log.d(tag, "Edit pad saved")
+    }
+
+    override fun onCancel() {
+        Log.d(tag, "Edit pad cancelled")
     }
 }
