@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="UI"
+        android:key="pref_key_ui_settings">
+        <!-- TODO: enable lights -->
+        <!-- TODO: select colors -->
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Rack"
+        android:key="pref_key_rack_settings">
+        <!-- TODO: select number of rows -->
+        <!-- TODO: select pads per row -->
+    </PreferenceCategory>
+</PreferenceScreen>

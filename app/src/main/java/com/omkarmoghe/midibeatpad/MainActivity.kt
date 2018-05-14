@@ -1,6 +1,7 @@
 package com.omkarmoghe.midibeatpad
 
 import android.app.Activity
+import android.app.FragmentManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.media.midi.MidiDevice
@@ -19,6 +20,7 @@ import android.widget.LinearLayout
 import com.omkarmoghe.midibeatpad.midi.openFirstInputPort
 import com.omkarmoghe.midibeatpad.pad.MidiPad
 import com.omkarmoghe.midibeatpad.pad.PadTouchListener
+import com.omkarmoghe.midibeatpad.settings.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity() {
@@ -88,12 +90,32 @@ class MainActivity : Activity() {
 
     // Callbacks
 
+    override fun onNavigateUp(): Boolean {
+        actionBar.setDisplayHomeAsUpEnabled(false)
+        actionBar.setDisplayShowHomeEnabled(false)
+        fragmentManager.popBackStack("rack", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        return super.onNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        actionBar.setDisplayHomeAsUpEnabled(false)
+        actionBar.setDisplayShowHomeEnabled(false)
+        super.onBackPressed()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
         R.id.actionAssignPads -> {
             // TODO: set all pads.editing to true
             true
         }
         R.id.actionSettings -> {
+            // TODO: send this to another activity as in intent and hook back button for that activity to finish()
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rack, SettingsFragment(), "settings")
+                    .addToBackStack("rack")
+                    .commit()
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setDisplayShowHomeEnabled(true)
             true
         }
         else -> super.onOptionsItemSelected(item)

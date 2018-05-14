@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.app.DialogFragment
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Parcel
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -44,8 +45,9 @@ class EditPadDialogFragment: DialogFragment() {
         val midiPad = arguments.getParcelable(midiPadKey) as MidiPad
 
         // Set up view
-        view.enablePadSwitch.isChecked = midiPad.enabled
         view.enablePadSwitch.setOnCheckedChangeListener({ _, isChecked ->  toggleControls(view, isChecked)})
+        view.enablePadSwitch.isChecked = midiPad.enabled
+        toggleControls(view, view.enablePadSwitch.isChecked)
         setUpSpinner(
                 view.channelSpinner,
                 Channel.values().map { channel -> channel.humanString },
@@ -76,6 +78,7 @@ class EditPadDialogFragment: DialogFragment() {
                     enabled = view.enablePadSwitch.isChecked
             )
             listener?.onSave(newMidiPad)
+            
             // TODO: update shared prefs
         })
 
